@@ -1,5 +1,3 @@
-# MyFirstRepository
-Мой первый репозиторий на Git Hub
 # Мой первый репозиторий
 
 Данный репозиторий был создан в рамках [профессии C#-разработчик](https://skillfactory.ru/csharp) на платформе SkillFactory.
