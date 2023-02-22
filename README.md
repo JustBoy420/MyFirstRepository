@@ -1,19 +1,100 @@
-# Мой первый репозиторий
+using SFML.Graphics;
+using SFML.Window;
+using System;
+using SFML.Learning;
+class Program : Game
+{ 
+    static Random rnd = new Random();
+    static int R1;
+    static int R2 = 10;
+    static int Drow = 1;
+    static int speed = 1;
+    static int Scor = 0;
 
-Данный репозиторий был создан в рамках [профессии C#-разработчик](https://skillfactory.ru/csharp) на платформе SkillFactory.
 
-## Текущий модуль
-В данный момент мы изучаем модуль под названием **Git**.
+    static void Initialize()
+    {
+         R1 = rnd.Next(120, 180);
+         R2 = R1 / 3;
+    }
+    
+    static void DorwSack()
+    {
+        SetFillColor(Color.Blue);
+        FillCircle(580, 380, R1);
+        SetFillColor(Color.Red);
+        FillCircle(580, 380, R1-10);
+        SetFillColor(Color.Yellow);
+        FillCircle(580, 380, R1 - 30);
+        SetFillColor(Color.Black);
+        FillCircle(580, 380, R1 - R1+5);
+        SetFillColor(Color.Green);
+        FillCircle(580, 380, R2);
+    }
+    static void  Main()
+    {
+        InitWindow(800, 600);
+        SetFont("comic.ttf");
+        Initialize();
+        
+        
 
-Мы уже знаем следующие вещи:
-* Что такое Система Контроля Версий и какие типы систем бывают.
-* Что такое Git
-* Что такое GitHub
-* Что такое Markdown
-* Что такое Commit
+        while (true)
+        {
+            if (Scor > 10) speed = 2;
+            if (Scor > 40) speed = 3;
+            if (Scor > 80) speed = 4;
+            if (Scor > 100) speed = 5;
+            R2 += speed * Drow;
 
-### Что нам ещё слдеуетизучить
-* Ветка(Branch)
-* Отправка в удалённый репазиторий (Push)
-* Обновление локалього репозитория (Pull/Fetch)
-* Слияние (Merge)
+            if (R2 >= R1|| R2 <= 10)
+            {
+                Drow *= -1;
+               // Scor -=2;
+             
+            }
+           
+            if (GetKeyDown(Keyboard.Key.Space) ==true)
+            {
+                if (R2 > R1 - 10)
+                {
+                    Initialize();
+                    Scor = Scor + 10;
+                    
+                }
+                if (R2 > R1 - 30)
+                {
+                    Initialize();
+                    Scor = Scor + 5;
+                    
+                }
+                if (R2 > R1 - 50)
+                {
+                    Initialize();
+                    Scor = Scor + 1;
+                    
+                }
+             
+
+            }
+            
+            
+            //
+            DisplayWindow();
+            ClearWindow();
+            //
+
+            DorwSack();
+            
+
+            DrawText(0, 0,$"Счёт: {Scor}", 20);
+            DrawText(0, 20, $"Рекорд: {Scor}", 20);
+
+            Console.WriteLine(speed);
+
+            //
+            DispatchEvents();
+            Delay(1);
+        }
+    }
+}
